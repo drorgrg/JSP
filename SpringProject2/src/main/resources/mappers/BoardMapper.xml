@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwillbs.mappers.BoardMapper">
+  <!-- SQL 구문 넣는 곳 -->
+  
+  <insert id="insertBoard">
+  	insert into board(num,name,pass,subject,content,readcount,date,file)
+  	values(#{num},#{name},#{pass},#{subject},#{content},#{readcount},#{date},#{file})
+  </insert>
+  
+  <select id="getMaxNum" resultType="java.lang.Integer">
+  	select max(num) from board
+  </select>
+  
+  <select id="getBoardList" resultType="com.itwillbs.domain.BoardDTO">
+  	select *from board order by num desc limit #{startRow},#{pageSize}
+  </select>
+  
+  <select id="getBoardCount" resultType="java.lang.Integer">
+	select count(*) from board
+  </select>
+  
+  <select id="getBoard" resultType="com.itwillbs.domain.BoardDTO">
+  	select * from board where num=#{num}
+  </select>
+  
+  <select id="numCheck" resultType="com.itwillbs.domain.BoardDTO">
+  	select * from board where num=#{num} and pass=#{pass}
+  </select>
+  <update id="updateBoard">
+  	update board set subject=#{subject},content=#{content} where num=#{num}
+  </update>
+</mapper>
